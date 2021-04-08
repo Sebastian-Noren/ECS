@@ -15,7 +15,7 @@ public class EntityManagerECS {
 
     private static final int INVALID_ENTITY = -1;
     private static final int START_ENTITY_INT = 0;
-    private static final int ENTITY_BUFFER_CHECKER = 20;
+    private static final int ENTITY_BUFFER_CHECKER = 5;
     private int ENTITY_ID = START_ENTITY_INT;
     public ArrayList<Integer> entityList;
     private HashMap<String, HashMap<Integer, ? extends IComponent>> componentStores;
@@ -29,24 +29,24 @@ public class EntityManagerECS {
 
     // Creates the entity ref
     public int createEntity() {
+        if (entityList.size() >= ENTITY_BUFFER_CHECKER) {
+            if (!ENTITY_BUFFER.isEmpty()) {
+                int entityBufferID = ENTITY_BUFFER.removeFirst();
+                entityList.set(entityBufferID, entityBufferID);
+                return entityBufferID;
+            }
+        }
         int newEntityID = getNewEntityID();
         if (newEntityID < START_ENTITY_INT) {
             return INVALID_ENTITY;
         } else {
             entityList.add(newEntityID);
-
             return newEntityID;
         }
     }
 
     private int getNewEntityID() {
         if (ENTITY_ID < Integer.MAX_VALUE) {
-            if (entityList.size() > ENTITY_BUFFER_CHECKER) {
-                if (!ENTITY_BUFFER.isEmpty()) {
-                    int checkID = ENTITY_BUFFER.removeFirst();
-                    System.out.println(checkID);
-                }
-            }
             return ENTITY_ID++;
         } else {
             for (int i = START_ENTITY_INT; i < Integer.MAX_VALUE; i++) {

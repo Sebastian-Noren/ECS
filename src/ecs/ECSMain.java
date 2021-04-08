@@ -74,6 +74,28 @@ public class ECSMain {
         }
 
 
+        // CREATE 4 Entities
+        int four = managerECS.createEntity();
+        int five = managerECS.createEntity();
+        int six = managerECS.createEntity();
+        managerECS.destroyEntity(3);
+        int seven = managerECS.createEntity();
+
+
+        managerECS.addComponent(four, new PersonDetailComponent("Sebastian", "Losto", "198xxxxx-xxxx"));
+        managerECS.addComponent(four, new AccountComponent());
+        managerECS.addComponent(four, new AddressComponent("eriksdaln 1"));
+
+        managerECS.addComponent(five, new PersonDetailComponent("John", "Doe", "19xxxx945-xxxx"));
+        managerECS.addComponent(five, new AddressComponent("Lost 1"));
+
+        managerECS.addComponent(six, new PersonDetailComponent("Adolf", "Bodil", "xxxx0112-31xx"));
+        managerECS.addComponent(six, new AccountComponent());
+        managerECS.addComponent(six, new AddressComponent("Didriksväg 26"));
+
+        managerECS.addComponent(seven, new PersonDetailComponent("Arnold", "Chan", "19xxxx01-3xxx"));
+        managerECS.addComponent(seven, new AccountComponent());
+        managerECS.addComponent(seven, new AddressComponent("Faltobo 10"));
 
 
     }
